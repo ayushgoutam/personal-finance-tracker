@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Personal Finance Tracker</title>
+  <style>
+    body { font-family: Arial; margin: 2rem; }
+    .container { max-width: 600px; margin: auto; }
+    input, button { margin-top: 10px; padding: 10px; width: 100%; }
+    ul { padding: 0; list-style: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💰 Personal Finance Tracker</h1>
+    <input id="description" placeholder="Expense/Income Description">
+    <input id="amount" placeholder="Amount" type="number">
+    <button onclick="addTransaction()">Add</button>
+    <ul id="list"></ul>
+    <h3>Total: ₹<span id="total">0</span></h3>
+  </div>
+  <script>
+    const transactions = [];
+    function addTransaction() {
+      const desc = document.getElementById('description').value;
+      const amt = parseFloat(document.getElementById('amount').value);
+      transactions.push({ desc, amt });
+      renderList();
+    }
+    function renderList() {
+      const ul = document.getElementById('list');
+      ul.innerHTML = '';
+      let total = 0;
+      transactions.forEach(t => {
+        const li = document.createElement('li');
+        li.innerText = `${t.desc}: ₹${t.amt}`;
+        total += t.amt;
+        ul.appendChild(li);
+      });
+      document.getElementById('total').innerText = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
